@@ -1,8 +1,9 @@
 plugins {
 	id 'fabric-loom' version '1.+'
 	id "io.github.p03w.machete" version "2.+"
-	id 'io.github.juuxel.loom-quiltflower' version '1.+'
+	id 'io.github.juuxel.loom-vineflower' version '1.+'
 	id 'maven-publish'
+	id 'io.freefair.lombok' version "8+"
 }
 
 version = project.mod_version
@@ -14,28 +15,42 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+
 	maven {
-		name = 'ParchmentMC'
-		url = 'https://maven.parchmentmc.org'
+		url = "https://maven.terraformersmc.com/"
+	}
+
+	maven {
+		url 'https://jitpack.io'
+	}
+
+	maven {
+		url "https://maven.siphalor.de/"
+	}
+
+	maven {
+		name = "Shedaniel's Maven"
+		url = "https://maven.shedaniel.me/"
 	}
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered() {
-		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_mappings}@zip")
-	}
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}+${minecraft_version}"
 
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+	// Config lib
+	modImplementation("com.github.Lortseam.completeconfig:base:${completeconfig_version}")
+	include("com.github.Lortseam.completeconfig:base:${completeconfig_version}")
+	modImplementation("com.github.Lortseam.completeconfig:gui-cloth:${completeconfig_version}")
+	include("com.github.Lortseam.completeconfig:gui-cloth:${completeconfig_version}")
 
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+	// Mod menu
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 base {
@@ -57,6 +72,16 @@ loom {
 			vmArg "-Dfabric-api.datagen.modid=${modId}"
 
 			runDir "build/datagen"
+		}
+	}
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+					'src/main/generated'
+			]
 		}
 	}
 }
