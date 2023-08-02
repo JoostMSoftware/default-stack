@@ -6,7 +6,6 @@ For setup instructions please see the [fabric wiki page](https://fabricmc.net/wi
 
 ## What's added ontop of the default template?
 
-- Mojang mappings with parchment
 - Accesswidener
 - datagen entrypoint
 - Default config lib, thanks to JiJ'd Complete Config with GUI support
