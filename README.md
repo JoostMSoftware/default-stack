@@ -9,6 +9,7 @@ For setup instructions please see the [fabric wiki page](https://fabricmc.net/wi
 - Mojang mappings with parchment
 - Accesswidener
 - datagen entrypoint
+- Default config lib, thanks to JiJ'd Complete Config with GUI support
 
 ## License
 
